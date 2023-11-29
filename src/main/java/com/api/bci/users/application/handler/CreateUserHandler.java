@@ -1,8 +1,8 @@
 package com.api.bci.users.application.handler;
 
-import com.api.bci.users.application.dto.UserRequestDto;
-import com.api.bci.users.application.dto.UserResponseDto;
-import com.api.bci.users.application.mapper.UserMapper;
+import com.api.bci.users.infrastructure.controller.dto.UserRequestDto;
+import com.api.bci.users.infrastructure.controller.dto.UserResponseDto;
+import com.api.bci.users.infrastructure.controller.mapper.UserMapper;
 import com.api.bci.users.domain.model.UserRequest;
 import com.api.bci.users.domain.service.CreateUserService;
 import org.springframework.stereotype.Component;

@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @FunctionalInterface
 public interface DeleteUserRepository {
-    UserResponse execute(UUID id);
+    void execute(UUID id);
 }

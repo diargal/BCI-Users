@@ -5,6 +5,6 @@ import com.api.bci.users.domain.model.UserResponse;
 
 @FunctionalInterface
 public interface UpdateUserRepository {
-    UserResponse execute(UserRequest userRequest);
+    UserResponse execute(String email, UserRequest userRequest);
 
 }

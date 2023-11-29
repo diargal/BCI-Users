@@ -1,7 +1,7 @@
 package com.api.bci.users.application.handler;
 
-import com.api.bci.users.application.dto.UserResponseDto;
-import com.api.bci.users.application.mapper.UserMapper;
+import com.api.bci.users.infrastructure.controller.dto.UserResponseDto;
+import com.api.bci.users.infrastructure.controller.mapper.UserMapper;
 import com.api.bci.users.domain.service.FindUserService;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class FindUserHandler {
         this.mapper = mapper;
     }
 
-    public UserResponseDto execute(UUID id) {
-        return mapper.responseToDto(service.execute(id));
+    public UserResponseDto execute(String email) {
+        return mapper.responseToDto(service.execute(email));
     }
 }

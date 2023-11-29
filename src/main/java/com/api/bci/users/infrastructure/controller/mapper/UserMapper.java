@@ -1,7 +1,7 @@
-package com.api.bci.users.application.mapper;
+package com.api.bci.users.infrastructure.controller.mapper;
 
-import com.api.bci.users.application.dto.UserRequestDto;
-import com.api.bci.users.application.dto.UserResponseDto;
+import com.api.bci.users.infrastructure.controller.dto.UserRequestDto;
+import com.api.bci.users.infrastructure.controller.dto.UserResponseDto;
 import com.api.bci.users.domain.model.UserRequest;
 import com.api.bci.users.domain.model.UserResponse;
 import org.mapstruct.Mapper;

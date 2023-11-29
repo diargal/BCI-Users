@@ -1,4 +1,4 @@
-package com.api.bci.users.application.dto;
+package com.api.bci.users.infrastructure.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +13,5 @@ public class UserRequestDto {
     private String email;
     private String password;
     private List<PhoneDto> phones;
+    private boolean isEnabled;
 }

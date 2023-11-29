@@ -1,5 +1,6 @@
-package com.api.bci.users.domain.model;
+package com.api.bci.users.infrastructure.controller.dto;
 
+import com.api.bci.users.domain.model.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponseDto {
     private UUID id;
     private String name;
     private String email;

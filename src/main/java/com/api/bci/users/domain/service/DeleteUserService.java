@@ -1,6 +1,5 @@
 package com.api.bci.users.domain.service;
 
-import com.api.bci.users.domain.model.UserResponse;
 import com.api.bci.users.domain.port.DeleteUserRepository;
 
 import java.util.UUID;
@@ -12,7 +11,7 @@ public class DeleteUserService {
         this.repository = repository;
     }
 
-    public UserResponse execute(UUID id) {
-        return repository.execute(id);
+    public void execute(UUID id) {
+        repository.execute(id);
     }
 }
