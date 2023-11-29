@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -41,6 +42,7 @@ public class UserEntity {
     private LocalDateTime created;
     private LocalDateTime modified;
     private LocalDateTime lastLogin;
+    @Getter
     @ColumnDefault("true")
     private boolean isActive;
 }

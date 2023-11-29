@@ -20,7 +20,7 @@ public class DeleteUserDeleteController {
 
 
     @DeleteMapping
-    public void createUser(@RequestParam UUID id) {
-        deleteUserHandler.execute(id);
+    public void createUser(@RequestParam String email) {
+        deleteUserHandler.execute(email);
     }
 }

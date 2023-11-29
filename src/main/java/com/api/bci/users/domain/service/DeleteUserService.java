@@ -11,7 +11,7 @@ public class DeleteUserService {
         this.repository = repository;
     }
 
-    public void execute(UUID id) {
-        repository.execute(id);
+    public void execute(String email) {
+        repository.execute(email);
     }
 }

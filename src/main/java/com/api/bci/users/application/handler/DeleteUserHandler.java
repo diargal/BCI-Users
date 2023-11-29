@@ -13,7 +13,7 @@ public class DeleteUserHandler {
         this.service = service;
     }
 
-    public void execute(UUID id) {
-        service.execute(id);
+    public void execute(String email) {
+        service.execute(email);
     }
 }
