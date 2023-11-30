@@ -10,22 +10,23 @@ import com.api.bci.users.domain.port.CreateUserRepository;
 import java.time.LocalDateTime;
 
 public class CreateUserService {
-    private final CreateUserRepository repository;
+    private final CreateUserRepository createUserRepository;
     private final AuthRepository authRepository;
 
-    public CreateUserService(CreateUserRepository repository, AuthRepository authRepository) {
-        this.repository = repository;
+    public CreateUserService(CreateUserRepository createUserRepository, AuthRepository authRepository) {
+        this.createUserRepository = createUserRepository;
         this.authRepository = authRepository;
     }
 
     public UserResponse execute(UserRequest userRequest) {
         LocalDateTime dateTimeNow = LocalDateTime.now();
-        userRequest.setCreated(dateTimeNow);
+        /*userRequest.setCreated(dateTimeNow);
         userRequest.setLastLogin(dateTimeNow);
         userRequest.setModified(dateTimeNow);
-        userRequest.setActive(Boolean.TRUE);
+        userRequest.setActive(Boolean.TRUE);*/
+        // userRequest = new UserRequest("name", "email@gmail.com", "pass", userRequest.getPhones());
         LoginRequest loginRequest = new LoginRequest(userRequest.getEmail(), userRequest.getPassword());
-        UserResponse userResponse = repository.execute(userRequest);
+        UserResponse userResponse = createUserRepository.execute(userRequest);
         LoginResponse loginResponse = authRepository.execute(loginRequest);
         userResponse.setToken(loginResponse.getToken());
 

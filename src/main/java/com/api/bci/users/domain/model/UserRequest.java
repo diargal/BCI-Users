@@ -1,15 +1,13 @@
 package com.api.bci.users.domain.model;
 
 import com.api.bci.users.domain.validation.ArgumentValidation;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class UserRequest {
 
     private UUID id;

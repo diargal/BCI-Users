@@ -1,6 +1,5 @@
 package com.api.bci.users.infrastructure.controller.dto;
 
-import com.api.bci.users.domain.model.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ public class UserResponseDto {
     private String name;
     private String email;
     private String password;
-    private List<Phone> phones;
+    private List<PhoneDto> phones;
     private LocalDateTime created;
     private LocalDateTime modified;
     private LocalDateTime lastLogin;

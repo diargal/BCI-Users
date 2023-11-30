@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/user")
 public class DeleteUserDeleteController {
@@ -20,7 +18,7 @@ public class DeleteUserDeleteController {
 
 
     @DeleteMapping
-    public void createUser(@RequestParam String email) {
+    public void deleteUser(@RequestParam String email) {
         deleteUserHandler.execute(email);
     }
 }

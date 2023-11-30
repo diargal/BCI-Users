@@ -15,7 +15,6 @@ public class CreateUserHandler {
     public CreateUserHandler(CreateUserService service, UserMapper mapper) {
         this.service = service;
         this.mapper = mapper;
-        // userFactory = new UserFactory();
     }
 
     public UserResponseDto execute(UserRequestDto userRequestDto) {

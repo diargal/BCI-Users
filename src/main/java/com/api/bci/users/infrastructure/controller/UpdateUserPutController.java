@@ -21,7 +21,7 @@ public class UpdateUserPutController {
     }
 
     @PutMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestParam String email,
+    public ResponseEntity<UserResponseDto> updateUser(@RequestParam String email,
                                                       @RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(updateUserHandler.execute(email, userRequestDto));
     }

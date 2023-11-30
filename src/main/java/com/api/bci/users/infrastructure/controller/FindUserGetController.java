@@ -19,7 +19,7 @@ public class FindUserGetController {
     }
 
     @GetMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestParam String email) {
+    public ResponseEntity<UserResponseDto> findUser(@RequestParam String email) {
         return ResponseEntity.ok(findUserHandler.execute(email));
     }
 }
