@@ -19,7 +19,6 @@ public class UpdateUserPersistence implements UpdateUserRepository {
         this.userEntityMapper = userEntityMapper;
     }
 
-
     @Override
     public UserResponse execute(String email, UserRequest userRequest) {
         return userRepository.findByEmail(email)

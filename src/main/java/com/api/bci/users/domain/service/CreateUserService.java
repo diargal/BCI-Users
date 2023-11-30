@@ -20,11 +20,10 @@ public class CreateUserService {
 
     public UserResponse execute(UserRequest userRequest) {
         LocalDateTime dateTimeNow = LocalDateTime.now();
-        /*userRequest.setCreated(dateTimeNow);
+        userRequest.setCreated(dateTimeNow);
         userRequest.setLastLogin(dateTimeNow);
         userRequest.setModified(dateTimeNow);
-        userRequest.setActive(Boolean.TRUE);*/
-        // userRequest = new UserRequest("name", "email@gmail.com", "pass", userRequest.getPhones());
+        userRequest.setActive(Boolean.TRUE);
         LoginRequest loginRequest = new LoginRequest(userRequest.getEmail(), userRequest.getPassword());
         UserResponse userResponse = createUserRepository.execute(userRequest);
         LoginResponse loginResponse = authRepository.execute(loginRequest);
