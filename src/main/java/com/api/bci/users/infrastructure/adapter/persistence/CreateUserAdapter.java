@@ -39,6 +39,6 @@ public class CreateUserAdapter implements CreateUserRepository {
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
             throw new ExistEmailException(ErrorMessageEnum.EMAIL_EXIST_EXCEPTION.getMessage());
 
-        return userEntityMapper.toModel(userRepository.save(userEntity));
+        return userEntityMapper.responseToModel(userRepository.save(userEntity));
     }
 }

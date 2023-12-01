@@ -16,7 +16,7 @@ public interface UserEntityMapper {
     @Mapping(target = "roles", source = "roles")
     UserEntity toEntity(UserRequest userRequest);
 
-    UserResponse toModel(UserEntity userEntity);
+    UserResponse responseToModel(UserEntity userEntity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "lastLogin", ignore = true)

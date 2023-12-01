@@ -23,7 +23,7 @@ public class FindUserAdapter implements FindUserRepository {
     @Override
     public UserResponse execute(UUID id) {
         return userRepository.findById(id)
-                .map(userEntityMapper::toModel)
+                .map(userEntityMapper::responseToModel)
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessageEnum.USER_NOT_FOUND_EXCEPTION.getMessage()));
     }
 }

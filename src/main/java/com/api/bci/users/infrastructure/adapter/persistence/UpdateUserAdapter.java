@@ -27,7 +27,7 @@ public class UpdateUserAdapter implements UpdateUserRepository {
         return userRepository.findById(id)
                 .map(userEntity -> {
                     userEntityMapper.updateUserFromModel(userRequest, userEntity);
-                    return userEntityMapper.toModel(userRepository.save(userEntity));
+                    return userEntityMapper.responseToModel(userRepository.save(userEntity));
                 })
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessageEnum.USER_NOT_FOUND_EXCEPTION.getMessage()));
     }

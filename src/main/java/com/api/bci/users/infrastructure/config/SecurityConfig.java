@@ -51,6 +51,11 @@ public class SecurityConfig {
                                         .antMatcher(HttpMethod.POST, "/api/v1/users")).permitAll()
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/users"))
                                 .hasRole(RoleEnum.USER.name())
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui.html")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/webjars/**")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-resources/**")).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> {
