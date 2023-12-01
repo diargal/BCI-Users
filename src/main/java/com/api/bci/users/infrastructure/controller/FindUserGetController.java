@@ -4,12 +4,14 @@ import com.api.bci.users.application.handler.FindUserHandler;
 import com.api.bci.users.infrastructure.controller.dto.UserResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class FindUserGetController {
 
     private final FindUserHandler findUserHandler;
@@ -18,8 +20,8 @@ public class FindUserGetController {
         this.findUserHandler = findUserHandler;
     }
 
-    @GetMapping
-    public ResponseEntity<UserResponseDto> findUser(@RequestParam String email) {
-        return ResponseEntity.ok(findUserHandler.execute(email));
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> findUser(@PathVariable UUID id) {
+        return ResponseEntity.ok(findUserHandler.execute(id));
     }
 }

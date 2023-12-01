@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -41,6 +42,7 @@ class CreateUserPostControllerTest {
     private AuthRepository authRepository;
 
     @Test
+    @WithMockUser
     void createUser_Successful() throws Exception {
         UUID id = UUID.randomUUID();
         String name = "Jhon Doe";
@@ -55,7 +57,7 @@ class CreateUserPostControllerTest {
         List<Phone> phones = List.of(phone);
         PhoneDto phoneDto = new PhoneDto(cellphone, cityCode, countryCode);
         List<PhoneDto> phonesDto = List.of(phoneDto);
-        UserResponse response = new UserResponse(id, name, userEmail, password,
+        UserResponse response = new UserResponse(id, name, userEmail,
                 phones, now, now, null, true, token);
         UserRequestDto userRequestDto = new UserRequestDto(name, userEmail, password, phonesDto, true);
         LoginResponse loginResponse = new LoginResponse(token);
@@ -63,7 +65,7 @@ class CreateUserPostControllerTest {
         when(createUserRepository.execute(any())).thenReturn(response);
         when(authRepository.execute(any())).thenReturn(loginResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/user")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )
@@ -71,7 +73,6 @@ class CreateUserPostControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(name))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(userEmail))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(password))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.active").value(Boolean.TRUE))
                 .andDo(print());
     }
@@ -93,7 +94,7 @@ class CreateUserPostControllerTest {
 
         when(createUserRepository.execute(any())).thenThrow(new ExistEmailException("El email ya se encuentra registrado."));
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/user")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )
@@ -116,7 +117,7 @@ class CreateUserPostControllerTest {
         List<PhoneDto> phonesDto = List.of(phoneDto);
         UserRequestDto userRequestDto = new UserRequestDto(name, userEmail, password, phonesDto, true);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/user")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )
@@ -139,7 +140,7 @@ class CreateUserPostControllerTest {
         List<PhoneDto> phonesDto = List.of(phoneDto);
         UserRequestDto userRequestDto = new UserRequestDto(name, userEmail, password, phonesDto, true);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/user")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )

@@ -33,6 +33,7 @@ class UpdateUserServiceTest {
     @Test
     void testExecute_UserUpdatedSuccessfully() {
         // Arrange
+        UUID id = UUID.randomUUID();
         String name = "Jhon Doe";
         String userEmail = "john.doe@example.com";
         String password = "password123";
@@ -42,24 +43,24 @@ class UpdateUserServiceTest {
         LocalDateTime now = LocalDateTime.now();
         Phone phone = new Phone(cellphone, cityCode, countryCode);
         List<Phone> phones = List.of(phone);
-        UUID id = UUID.randomUUID();
         UserRequest userRequest = new UserRequest(name, userEmail, password, phones);
-        UserResponse expectedResponse = new UserResponse(id, name, userEmail, password,
+        UserResponse expectedResponse = new UserResponse(id, name, userEmail,
                 phones, now, now, now, true, null);
 
-        when(userRepository.execute(userEmail, userRequest)).thenReturn(expectedResponse);
+        when(userRepository.execute(id, userRequest)).thenReturn(expectedResponse);
 
         // Act
-        UserResponse actualResponse = updateUserService.execute(userEmail, userRequest);
+        UserResponse actualResponse = updateUserService.execute(id, userRequest);
 
         // Assert
         assertEquals(expectedResponse, actualResponse);
-        verify(userRepository, times(1)).execute(userEmail, userRequest);
+        verify(userRepository, times(1)).execute(id, userRequest);
     }
 
     @Test
     void testExecute_UserUpdateFailed() {
         // Arrange
+        UUID id = UUID.randomUUID();
         String name = "Jhon Doe";
         String userEmail = "john.doe@example.com";
         String password = "password123";
@@ -69,13 +70,13 @@ class UpdateUserServiceTest {
         Phone phone = new Phone(cellphone, cityCode, countryCode);
         List<Phone> phones = List.of(phone);
         UserRequest userRequest = new UserRequest(name, userEmail, password, phones);
-        when(userRepository.execute(userEmail, userRequest)).thenReturn(null);
+        when(userRepository.execute(id, userRequest)).thenReturn(null);
 
         // Act
-        UserResponse actualResponse = updateUserService.execute(userEmail, userRequest);
+        UserResponse actualResponse = updateUserService.execute(id, userRequest);
 
         // Assert
         assertNull(actualResponse);
-        verify(userRepository, times(1)).execute(userEmail, userRequest);
+        verify(userRepository, times(1)).execute(id, userRequest);
     }
 }

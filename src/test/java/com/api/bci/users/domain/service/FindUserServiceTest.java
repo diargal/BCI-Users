@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.times;
@@ -26,29 +28,29 @@ class FindUserServiceTest {
     @Test
     void testExecute_UserFound() {
         // Arrange
-        String userEmail = "john.doe@example.com";
+        UUID id = UUID.randomUUID();
         UserResponse expectedResponse = new UserResponse();
-        when(userRepository.execute(userEmail)).thenReturn(expectedResponse);
+        when(userRepository.execute(id)).thenReturn(expectedResponse);
 
         // Act
-        UserResponse actualResponse = findUserService.execute(userEmail);
+        UserResponse actualResponse = findUserService.execute(id);
 
         // Assert
         assertEquals(expectedResponse, actualResponse);
-        verify(userRepository, times(1)).execute(userEmail);
+        verify(userRepository, times(1)).execute(id);
     }
 
     @Test
     void testExecute_UserNotFound() {
         // Arrange
-        String userEmail = "nonexistent@example.com";
-        when(userRepository.execute(userEmail)).thenReturn(null);
+        UUID id = UUID.randomUUID();
+        when(userRepository.execute(id)).thenReturn(null);
 
         // Act
-        UserResponse actualResponse = findUserService.execute(userEmail);
+        UserResponse actualResponse = findUserService.execute(id);
 
         // Assert
         assertNull(actualResponse);
-        verify(userRepository, times(1)).execute(userEmail);
+        verify(userRepository, times(1)).execute(id);
     }
 }

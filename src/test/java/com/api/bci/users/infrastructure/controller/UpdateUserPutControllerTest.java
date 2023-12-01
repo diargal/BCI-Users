@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -37,6 +38,7 @@ class UpdateUserPutControllerTest {
     private UpdateUserRepository updateUserRepository;
 
     @Test
+    @WithMockUser
     void updateUser_Successful() throws Exception {
         UUID id = UUID.randomUUID();
         String name = "Jhon Doe";
@@ -51,13 +53,13 @@ class UpdateUserPutControllerTest {
         List<Phone> phones = List.of(phone);
         PhoneDto phoneDto = new PhoneDto(cellphone, cityCode, countryCode);
         List<PhoneDto> phonesDto = List.of(phoneDto);
-        UserResponse response = new UserResponse(id, name, userEmail, password,
+        UserResponse response = new UserResponse(id, name, userEmail,
                 phones, now, now, null, true, token);
         UserRequestDto userRequestDto = new UserRequestDto(name, userEmail, password, phonesDto, true);
 
         when(updateUserRepository.execute(any(), any())).thenReturn(response);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/user?email=" + userEmail)
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/users/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )
@@ -65,13 +67,14 @@ class UpdateUserPutControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(name))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(userEmail))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(password))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.active").value(Boolean.TRUE))
                 .andDo(print());
     }
 
     @Test
+    @WithMockUser
     void updateUser_EmailNotFound_ThrownException() throws Exception {
+        UUID id = UUID.randomUUID();
         String name = "Jhon Doe";
         String userEmail = "john.doe.33@example.com";
         String password = "password123";
@@ -84,7 +87,7 @@ class UpdateUserPutControllerTest {
 
         when(updateUserRepository.execute(any(), any())).thenThrow(new UserNotFoundException("No se encontró registro."));
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/user?email=" + userEmail)
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/users/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDto))
                 )

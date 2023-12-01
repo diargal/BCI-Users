@@ -1,5 +1,6 @@
 package com.api.bci.users.domain.validation;
 
+import com.api.bci.users.domain.model.enums.ErrorMessageEnum;
 import com.api.bci.users.domain.validation.exception.EmailFormatException;
 import com.api.bci.users.domain.validation.exception.RequiredValueNoNullOrNoEmptyException;
 
@@ -17,21 +18,21 @@ public class ArgumentValidation {
     }
 
     public static void emailFormatValidation(String email, String fieldName) {
-        String initialMessage = "No se cumple con el formato de correo: ";
+        String initialMessage = ErrorMessageEnum.EMAIL_FORMAT_EXCEPTION.getMessage();
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches())
             throw new EmailFormatException(initialMessage.concat(fieldName));
     }
 
     public static void valueNotNullOrNotEmptyValidation(String value, String fieldName) {
-        String initialMessage = "Valor vacío o nulo: ";
+        String initialMessage = ErrorMessageEnum.VALUE_NULL_OR_EMPTY_EXCEPTION.getMessage();
         if (Objects.isNull(value) || value.isEmpty()) {
             throw new RequiredValueNoNullOrNoEmptyException(initialMessage.concat(fieldName));
         }
     }
 
     public static void listNotNullOrNotEmptyValidation(List<?> values, String fieldName) {
-        String initialMessage = "Valor vacío o nulo: ";
+        String initialMessage = ErrorMessageEnum.VALUE_NULL_OR_EMPTY_EXCEPTION.getMessage();
         if (Objects.isNull(values) || values.isEmpty()) {
             throw new RequiredValueNoNullOrNoEmptyException(initialMessage.concat(fieldName));
         }

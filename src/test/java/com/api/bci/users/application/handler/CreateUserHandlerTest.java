@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +32,9 @@ class CreateUserHandlerTest {
     @InjectMocks
     private CreateUserHandler createUserHandler;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @Test
     void testExecute_UserCreationSuccessful() {
         // Arrange
@@ -38,6 +42,7 @@ class CreateUserHandlerTest {
         String name = "Jhon Doe";
         String userEmail = "john.doe@example.com";
         String password = "password123";
+        String passwordEncode = "encode";
         String cellphone = "+579863333";
         String cityCode = "05757";
         String countryCode = "57";
@@ -48,14 +53,15 @@ class CreateUserHandlerTest {
         List<PhoneDto> phonesDto = List.of(phoneDto);
         UserRequest userRequest = new UserRequest(name, userEmail, password, phones);
         UserRequestDto userRequestDto = new UserRequestDto(name, userEmail, password, phonesDto, true);
-        UserResponse expectedResponse = new UserResponse(id, name, userEmail, password,
+        UserResponse expectedResponse = new UserResponse(id, name, userEmail,
                 phones, now, now, now, true, null);
-        UserResponseDto expectedResponseDto = new UserResponseDto(id, name, userEmail, password,
+        UserResponseDto expectedResponseDto = new UserResponseDto(id, name, userEmail,
                 phonesDto, now, now, now, true, null);
 
         Mockito.when(userMapper.requestToModel(userRequestDto)).thenReturn(userRequest);
         Mockito.when(createUserService.execute(userRequest)).thenReturn(expectedResponse);
         Mockito.when(userMapper.responseToDto(expectedResponse)).thenReturn(expectedResponseDto);
+        Mockito.when(passwordEncoder.encode(password)).thenReturn(passwordEncode);
 
         // Act
         UserResponseDto actualResponseDto = createUserHandler.execute(userRequestDto);

@@ -7,6 +7,8 @@ import com.api.bci.users.infrastructure.controller.dto.UserResponseDto;
 import com.api.bci.users.infrastructure.controller.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UpdateUserHandler {
     private final UpdateUserService service;
@@ -17,8 +19,8 @@ public class UpdateUserHandler {
         this.mapper = mapper;
     }
 
-    public UserResponseDto execute(String email, UserRequestDto userRequestDto) {
+    public UserResponseDto execute(UUID id, UserRequestDto userRequestDto) {
         UserRequest userRequest = mapper.requestToModel(userRequestDto);
-        return mapper.responseToDto(service.execute(email, userRequest));
+        return mapper.responseToDto(service.execute(id, userRequest));
     }
 }

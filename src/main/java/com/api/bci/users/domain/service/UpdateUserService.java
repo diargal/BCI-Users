@@ -5,6 +5,7 @@ import com.api.bci.users.domain.model.UserResponse;
 import com.api.bci.users.domain.port.UpdateUserRepository;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class UpdateUserService {
     private final UpdateUserRepository repository;
@@ -13,8 +14,8 @@ public class UpdateUserService {
         this.repository = repository;
     }
 
-    public UserResponse execute(String email, UserRequest userRequest) {
+    public UserResponse execute(UUID id, UserRequest userRequest) {
         userRequest.setModified(LocalDateTime.now());
-        return repository.execute(email, userRequest);
+        return repository.execute(id, userRequest);
     }
 }

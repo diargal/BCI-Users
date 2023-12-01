@@ -7,8 +7,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class JwtAdapter implements AuthRepository {
+    private final JwtUtils jwtUtils;
+
+    public JwtAdapter(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
+
     @Override
     public LoginResponse execute(LoginRequest loginRequest) {
-        return new LoginResponse("");
+        return new LoginResponse(jwtUtils.generateAccesToken(loginRequest.getEmail()));
     }
 }

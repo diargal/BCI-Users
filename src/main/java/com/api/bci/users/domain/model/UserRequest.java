@@ -1,10 +1,12 @@
 package com.api.bci.users.domain.model;
 
 import com.api.bci.users.domain.validation.ArgumentValidation;
+import com.api.bci.users.infrastructure.adapter.security.model.enums.RoleEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -19,6 +21,7 @@ public class UserRequest {
     private LocalDateTime modified;
     private LocalDateTime lastLogin;
     private boolean isActive;
+    private Set<RoleEnum> roles;
 
     public UserRequest(String name, String email, String password, List<Phone> phones) {
         setName(name);

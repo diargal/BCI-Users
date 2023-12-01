@@ -10,9 +10,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -27,11 +30,12 @@ class DeleteUserDeleteControllerTest {
     private DeleteUserRepository deleteUserRepository;
 
     @Test
+    @WithMockUser
     void deleteUser_Successful() throws Exception {
-        String userEmail = "digarciaalt@gmail.com";
-        Mockito.doNothing().when(deleteUserRepository).execute(userEmail);
+        UUID id = UUID.randomUUID();
+        Mockito.doNothing().when(deleteUserRepository).execute(id);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/user?email=" + userEmail)
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/users/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print());

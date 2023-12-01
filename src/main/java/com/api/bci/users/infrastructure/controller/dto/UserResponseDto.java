@@ -15,7 +15,6 @@ public class UserResponseDto {
     private UUID id;
     private String name;
     private String email;
-    private String password;
     private List<PhoneDto> phones;
     private LocalDateTime created;
     private LocalDateTime modified;

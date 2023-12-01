@@ -50,7 +50,7 @@ class CreateUserServiceTest {
         List<Phone> phones = List.of(phone);
         UUID id = UUID.randomUUID();
         UserRequest userRequest = new UserRequest(name, userEmail, password, phones);
-        UserResponse expectedResponse = new UserResponse(id, name, userEmail, password,
+        UserResponse expectedResponse = new UserResponse(id, name, userEmail,
                 phones, now, now, now, true, null);
         LoginRequest loginRequest = new LoginRequest(userEmail, password);
         LoginResponse loginResponse = new LoginResponse(token);

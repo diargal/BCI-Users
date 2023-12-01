@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -23,12 +25,12 @@ class DeleteUserServiceTest {
     @Test
     void testExecute_UserDeletedSuccessfully() {
         // Arrange
-        String userEmail = "john.doe@example.com";
+        UUID id = UUID.randomUUID();
 
         // Act
-        deleteUserService.execute(userEmail);
+        deleteUserService.execute(id);
 
         // Assert
-        verify(userRepository, times(1)).execute(userEmail);
+        verify(userRepository, times(1)).execute(id);
     }
 }
